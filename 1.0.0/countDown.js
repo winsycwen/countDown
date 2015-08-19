@@ -1,5 +1,5 @@
 /*!
- * countDown v1.0.0.1 
+ * countDown v1.0.0
  * 倒计时组件
  *
  * 作者：winsycwen
@@ -11,7 +11,7 @@
 ;(function($) {
 	/*
 	 * @description 初始化操作：用户配置与默认配置合并、计算时间差、倒计时事件初始化
-	 * @params {userOptions: 用户配置}
+	 * @params Object:userOptions 用户配置
 	 * @return null
 	 */
 	function _init(userOptions) {
@@ -20,9 +20,9 @@
 
 		/*
 		 * options默认配置
-		 * now：现在的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
-		 * startTime: 开始倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
-		 * endTime: 结束倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
+		 * now：现在的时间，可选选项，13位时间戳(String)，毫秒为单位，如果提供了startTime与endTime则默认取客户端的时间
+		 * startTime: 开始倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，如果没有提供now、endTime则默认倒计时时间为2分钟
+		 * endTime: 结束倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，如果没有提供now、startTime则默认倒计时时间为2分钟
 		 * minRange: "0" or "day"
 		 * maxRange: "4" or "milliseconds"
 		 */
@@ -45,7 +45,7 @@
 				diff = options.endTime - options.now;
 			}
 		}
-		// interval时间间隔，用于interval间歇调用
+		// 设置interval时间间隔，用于interval间歇调用
 		var time = 1000;
 		if(options.maxRange >= options.minRange) {
 			switch(options.maxRange) {
@@ -72,7 +72,7 @@
 				case 4:
 				case "4": 
 				case "milliseconds": 
-					time = 1;
+					time = 2;
 					break;
 				default: 
 					$.error("No matching options were found!");
@@ -83,23 +83,26 @@
 		var interval = null;
 		// 获取倒计时初始化时间以及显示该时间
 		var initTime = _initTime.call($this, diff, options);
-		// var initTime = {"hour": 0, "minutes": 1, "seconds": 10, "length": 3};
+
+		// 测试：
+		// initTime = {"hour": 0, "minutes": 1, "seconds": 10, "length": 3};
+
 		console.log(initTime);
-		var max = options.maxRange,
-			min = options.minRange;
+		var max = options.maxRange;
 		
-		// 绑定名为"start"的事件
+		// 绑定名为"start"的事件，定义改变时间的间歇调用
 		$this.on("start", function(event) {
 			var $that = $this;
 			if(!interval) {
 				interval = setInterval(function() {
-					initTime = _changTime.call($that, initTime, max, min);
+					initTime = _changTime.call($that, initTime, max);
 				}, time);
 			}
 		});
-		// 触发"start"事件
+		// 触发"start"事件，开始倒计时
 		$this.trigger("start");
-		// 绑定名为"pause"事件
+
+		// 绑定名为"pause"事件，暂停倒计时
 		$this.on("pause", function() {
 			if(interval) {
 				clearInterval(interval);
@@ -122,8 +125,8 @@
 	/*
 	 * @description 获取倒计时初始化时间以及显示该时间，
 	 * 				根据时间差以及配置选项计算倒计时初始的天数、小时、分钟、秒、毫秒
-	 * @params {diff: 时间差，options: 配置选项}
-	 * @return timeArray 
+	 * @params Number:diff 时间差; Object:options 配置选项
+	 * @return 类数组:timeArray 返回初次获取到的时间
 	 */
 	function _initTime(diff, options) {
 		var timeArray = [];
@@ -143,22 +146,33 @@
 	}
 
 	/*
-	 * @description 改变时间，根据时间差计算倒计时天数、小时、分钟、秒、毫秒。
-	 * @params {time: 时间}
+	 * @description 改变时间，利用递归的方法判断从[毫秒、[秒天数、[分钟、[小时、[天]]]]]的时间
+	 *				是否到达临界点0
+	 * @params 类数组:time 时间;Number:max timeClass对应毫秒至天的下标
 	 */
-	function _changTime(time, max, min) {
-		if(min > max) {
-			this.trigger("pause");
-		} else {
-			if(time[timeClass[max]] != 0) {
-				timeClass[max] == "milliseconds" ? time[timeClass[max]]-= 3 : time[timeClass[max]] --;
-			} else {
-				timeClass[max] == "milliseconds" ? time[timeClass[max]] = 999 : time[timeClass[max]] = 59;
-				_changTime.call(this, time, --max, min);
-			}
+	function _changTime(time, max) {
+		if(time[timeClass[max]] != 0) {
+			 // time[timeClass[max]] --;
+			timeClass[max] == "milliseconds" ? time[timeClass[max]] -= 6 : time[timeClass[max]] --;
 			this.find("." + timeClass[max]).text(time[timeClass[max]]);
- 			return time;
- 		}
+		} else {
+			for(var len = 0, i = time.length - 1, flag = false; i >= len; i-- ) {
+				if(time[timeClass[i]] != 0) break;
+				if(i == len) {
+					flag = true;
+					// 暂停倒计时
+					this.trigger("pause");
+				}
+			}
+			if(!flag) {
+				timeClass[max] == "milliseconds" ? time[timeClass[max]] = 996 : time[timeClass[max]] = 59;
+				// 显示时间
+				this.find("." + timeClass[max]).text(time[timeClass[max]]);
+				// 递归
+				_changTime.call(this, time, --max);
+			}
+		}
+		return time;
 	}
 
 	// 公有方法
