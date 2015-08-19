@@ -83,8 +83,6 @@
 		var interval = null;
 		// 初始化倒计时时间
 		var initTime = _initTime.call($this, diff, options);
-		var length = initTime.length;
-		console.log(initTime);
 		// _createDigits.call($this, diff, options);
 		// 绑定名为"start"的事件
 		$this.on("start", function(event) {
@@ -127,56 +125,22 @@
 		var obj = [];
 		var max = options.maxRange;
 		var min = options.minRange;
-		var hour = parseInt(diff/3600000);
+		/*var hour = parseInt(diff/3600000);
 		var minutes = parseInt(diff/60000)%60;
 		var seconds = parseInt(diff/1000)%60;
-		console.log(hour, minutes, seconds);
+		console.log(hour, minutes, seconds);*/
 		var temp = parseInt(diff/dividend_one[min]);
 		this.find("." + timeClass[min]).text(temp);
-		obj.push(temp);
+		obj[timeClass[min]] = temp;
 		min ++;
 		for(;min <= max; min++) {
 			temp = parseInt(diff/dividend_one[min])%dividend_two[min];
 			this.find("." + timeClass[min]).text(temp);
-			obj.push(temp);
+			obj[timeClass[min]] = temp;
 		}
+		obj.length = max - min + 1;
 		return obj;
 	}
-
-	/*
-	 * @description 改变倒计时的天数
-	 * @param 
-	 * @return null
-	 */
-	function _changeDay() {}
-
-	/*
-	 * @description 改变倒计时的小时数
-	 * @param 
-	 * @return null
-	 */
-	function _changeHour() {}
-
-	/*
-	 * @description 改变倒计时的分钟数
-	 * @param 
-	 * @return null
-	 */
-	function _changeMinutes() {}
-
-	/*
-	 * @description 改变倒计时的秒数
-	 * @param 
-	 * @return null
-	 */
-	function _changeSeconds() {}
-
-	/*
-	 * @description 改变倒计时的毫秒数
-	 * @param 
-	 * @return null
-	 */
-	function _changeMilliseconds() {}
 
 	/*
 	 * @description 创建时间，根据时间差计算倒计时天数、小时、分钟、秒、毫秒。
