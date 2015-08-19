@@ -30,8 +30,8 @@
 			now: new Date().getTime(),
 			startTime: null,
 			endTime: null,
-			minRange: 1,
-			maxRange: 5
+			minRange: 0,
+			maxRange: 4
 		};
 		
 		// 配置：合并userOptions到options对象中
@@ -49,28 +49,28 @@
 		var left = 0;
 		if(options.maxRange >= options.minRange) {
 			switch(options.maxRange) {
-				case 1:
-				case "1": 
+				case 0:
+				case "0": 
 				case "day": 
 					time = 86400000;
 					break;
-				case 2:
-				case "2": 
+				case 1:
+				case "1": 
 				case "hour": 
 					time = 3600000;
 					break;
-				case 3:
-				case "3": 
+				case 2:
+				case "2": 
 				case "minutes": 
 					time = 60000;
 					break;
-				case 4:
-				case "4": 
+				case 3:
+				case "3": 
 				case "seconds": 
 					time = 1000;
 					break;
-				case 5:
-				case "5": 
+				case 4:
+				case "4": 
 				case "milliseconds": 
 					time = 1;
 					break;
@@ -82,7 +82,10 @@
 
 		var interval = null;
 		// 初始化倒计时时间
-		_createDigits.call($this, diff, options);
+		var initTime = _initTime.call($this, diff, options);
+		var length = initTime.length;
+		console.log(initTime);
+		// _createDigits.call($this, diff, options);
 		// 绑定名为"start"的事件
 		$this.on("start", function(event) {
 			var $that = $this;
@@ -104,12 +107,40 @@
 		});
 	}
 
+
+	// 闭包内部全局变量
+	var timeClass = ["day", "hour", "minutes", "seconds", "milliseconds"];
+	var dividend_one = [86400000, 3600000, 60000, 1000, 1];
+	var dividend_two = [1, 24, 60, 60, 1000];
+	/*	var milliseconds = parseInt(diff)%1000;
+		var seconds = parseInt(diff/1000)%60;
+		var minutes = parseInt(diff/60000)%60;
+		var hour = parseInt(diff/3600000)%24;
+		var day = parseInt(diff/86400000);*/
+	
 	/*
 	 * @description 初始化时间，根据时间差以及配置选项计算倒计时初始的天数、小时、分钟、秒、毫秒
 	 * @params {diff: 时间差，options: 配置选项}
-	 * @return null
+	 * @return obj
 	 */
 	function _initTime(diff, options) {
+		var obj = [];
+		var max = options.maxRange;
+		var min = options.minRange;
+		var hour = parseInt(diff/3600000);
+		var minutes = parseInt(diff/60000)%60;
+		var seconds = parseInt(diff/1000)%60;
+		console.log(hour, minutes, seconds);
+		var temp = parseInt(diff/dividend_one[min]);
+		this.find("." + timeClass[min]).text(temp);
+		obj.push(temp);
+		min ++;
+		for(;min <= max; min++) {
+			temp = parseInt(diff/dividend_one[min])%dividend_two[min];
+			this.find("." + timeClass[min]).text(temp);
+			obj.push(temp);
+		}
+		return obj;
 	}
 
 	/*
@@ -151,23 +182,8 @@
 	 * @description 创建时间，根据时间差计算倒计时天数、小时、分钟、秒、毫秒。
 	 */
 	function _createDigits(diff, options) {
-		if(diff > -1) {
-			var milliseconds = parseInt(diff)%1000;
-			var seconds = parseInt(diff/1000)%60;
-			var minutes = parseInt(diff/60000)%60;
-			var hour = parseInt(diff/3600000)%24;
-			var day = parseInt(diff/86400000);
-			this.find(".day").text(day > 9 ? day : "0"+day).end()
-				.find(".hour").text(hour > 9 ? hour : "0"+hour).end()
-				.find(".minutes").text(minutes > 9 ? minutes : "0"+minutes).end()
-				.find(".seconds").text(seconds > 9 ? seconds : "0"+seconds).end()
-				.find(".milliseconds").text(milliseconds > 9 ? milliseconds : "0"+milliseconds).end();
-		}
+
 	}
-
-	// 闭包内部全局变量
-	var timeClass = ["day", "hour", "minutes", "seconds", "milliseconds"];
-
 
 	// 公有方法
 	var methods = {
@@ -203,8 +219,9 @@
 $(function() {
 	$(".test").countdown({
 		"startTime": "1439740800000",
-		"endTime": "1439913600000",
-		"maxRange": 4
+		"endTime": "1440864000000",   
+		"minRange": 1,
+		"maxRange": 3
 	});
 	$(".countdown").countdown();
 });
