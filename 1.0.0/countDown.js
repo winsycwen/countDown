@@ -1,9 +1,9 @@
 /*!
  * countDown v1.0.0.1 
- * 倒计时
+ * 倒计时组件
  *
- * Copyright 2011-2013, winsycwen
- *
+ * 作者：winsycwen
+ * Github: https://github.com/winsycwen
  * 请尊重原创，保留头部版权
  * 在保留版权的前提下可应用于个人或商业用途
  */
@@ -20,11 +20,11 @@
 
 		/*
 		 * options默认配置
-		 * now：现在的时间，可选选项，11位时间戳(String)
-		 * startTime: 开始倒计时的时间，必填，时间戳(String)
-		 * endTime: 结束倒计时的时间，必填，时间戳(String)
-		 * minRange: "1" or "day"
-		 * maxRange: "5" or "milliseconds"
+		 * now：现在的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
+		 * startTime: 开始倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
+		 * endTime: 结束倒计时的时间，可选选项，13位时间戳(String)，毫秒为单位，默认取客户端的时间
+		 * minRange: "0" or "day"
+		 * maxRange: "4" or "milliseconds"
 		 */
 		var options = {
 			now: new Date().getTime(),
@@ -39,14 +39,14 @@
 
 		var diff = 120000; // 现在时间与结束时间的时间差（毫秒）
 		if(userOptions && userOptions.startTime && userOptions.endTime) {
-			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，则计算现在时间与结束时间的差
+			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，
+			// 则计算现在时间与结束时间的差
 			if(options.now > options.startTime && options.now < options.endTime) {
 				diff = options.endTime - options.now;
 			}
 		}
-
-		var time = 1000;  // interval时间间隔，用于interval间歇调用
-		var left = 0;
+		// interval时间间隔，用于interval间歇调用
+		var time = 1000;
 		if(options.maxRange >= options.minRange) {
 			switch(options.maxRange) {
 				case 0:
@@ -75,22 +75,25 @@
 					time = 1;
 					break;
 				default: 
-					$.warn("No matching options were found!");
+					$.error("No matching options were found!");
 					break;
 			}
 		}
 
 		var interval = null;
-		// 初始化倒计时时间
+		// 获取倒计时初始化时间以及显示该时间
 		var initTime = _initTime.call($this, diff, options);
-		// _createDigits.call($this, diff, options);
+		// var initTime = {"hour": 0, "minutes": 1, "seconds": 10, "length": 3};
+		console.log(initTime);
+		var max = options.maxRange,
+			min = options.minRange;
+		
 		// 绑定名为"start"的事件
 		$this.on("start", function(event) {
 			var $that = $this;
 			if(!interval) {
 				interval = setInterval(function() {
-					_createDigits.call($that, diff, options);
-					diff -= time;	
+					initTime = _changTime.call($that, initTime, max, min);
 				}, time);
 			}
 		});
@@ -117,36 +120,45 @@
 		var day = parseInt(diff/86400000);*/
 	
 	/*
-	 * @description 初始化时间，根据时间差以及配置选项计算倒计时初始的天数、小时、分钟、秒、毫秒
+	 * @description 获取倒计时初始化时间以及显示该时间，
+	 * 				根据时间差以及配置选项计算倒计时初始的天数、小时、分钟、秒、毫秒
 	 * @params {diff: 时间差，options: 配置选项}
-	 * @return obj
+	 * @return timeArray 
 	 */
 	function _initTime(diff, options) {
-		var obj = [];
+		var timeArray = [];
 		var max = options.maxRange;
 		var min = options.minRange;
-		/*var hour = parseInt(diff/3600000);
-		var minutes = parseInt(diff/60000)%60;
-		var seconds = parseInt(diff/1000)%60;
-		console.log(hour, minutes, seconds);*/
 		var temp = parseInt(diff/dividend_one[min]);
 		this.find("." + timeClass[min]).text(temp);
-		obj[timeClass[min]] = temp;
+		timeArray.length = max - min + 1;
+		timeArray[timeClass[min]] = temp;
 		min ++;
 		for(;min <= max; min++) {
 			temp = parseInt(diff/dividend_one[min])%dividend_two[min];
 			this.find("." + timeClass[min]).text(temp);
-			obj[timeClass[min]] = temp;
+			timeArray[timeClass[min]] = temp;
 		}
-		obj.length = max - min + 1;
-		return obj;
+		return timeArray;
 	}
 
 	/*
-	 * @description 创建时间，根据时间差计算倒计时天数、小时、分钟、秒、毫秒。
+	 * @description 改变时间，根据时间差计算倒计时天数、小时、分钟、秒、毫秒。
+	 * @params {time: 时间}
 	 */
-	function _createDigits(diff, options) {
-
+	function _changTime(time, max, min) {
+		if(min > max) {
+			this.trigger("pause");
+		} else {
+			if(time[timeClass[max]] != 0) {
+				timeClass[max] == "milliseconds" ? time[timeClass[max]]-= 3 : time[timeClass[max]] --;
+			} else {
+				timeClass[max] == "milliseconds" ? time[timeClass[max]] = 999 : time[timeClass[max]] = 59;
+				_changTime.call(this, time, --max, min);
+			}
+			this.find("." + timeClass[max]).text(time[timeClass[max]]);
+ 			return time;
+ 		}
 	}
 
 	// 公有方法
@@ -168,7 +180,8 @@
 
 	$.fn.countdown = function(method) {
 		if(methods && methods[method]) {
-			// 如果countdown已经初始化，且methods中存在method方法，则将arguments[1...n]的参数转化为数组形式传入methods[method]方法中
+			// 如果countdown已经初始化，且methods中存在method方法，
+			// 则将arguments[1...n]的参数转化为数组形式传入methods[method]方法中
 			return methods[method].apply(this, Array.prototype.slice.call(arguments, 1)); 
 		} else if(typeof method == "object" || !method) {
 			// 如果传入的method参数是对象或者没有传参，则进行初始化
