@@ -4,45 +4,57 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<style type="text/css">
-	.countdown {
+	.time {
   		font: italic 12px "Microsoft Yahei",Arial;
   		color: #f60;
 	}
-	.time {
+	.time span {
 		font-size: 40px;
+	}
+	.time em {
+		font-style: normal;
+	}
+	.time .left {
+		font-size: 14px;
+		color: black;
 	}
 	</style>
 </head>
 <body>
-	<div class="test">
-		<span>剩余时间（小时到秒）：</span>
-		<!-- <span class="day"></span>
-		<span>天</span> -->
-		<span class="hour"></span>
-		<span>小时</span>
-		<span class="minutes"></span>
-		<span>分钟</span>
-		<span class="seconds"></span>
-		<span>秒</span>
-		<!-- <span class="milliseconds"></span>
-		<span>毫秒</span> -->
+	<div class="time test">
+		<span class="left">剩余时间（小时到秒）：</span>
 	</div>
-	<div class="countdown">
-		<span>剩余时间（天到毫秒）：</span>
-		<span class="time day"></span>
-		<span>天</span>
-		<span class="time hour"></span>
-		<span>小时</span>
-		<span class="time minutes"></span>
-		<span>分钟</span>
-		<span class="time seconds"></span>
-		<span>秒</span>
-		<span class="time milliseconds"></span>
-		<span>毫秒</span>
+	<div class="time countdown">
+		<span class="left">剩余时间（天到毫秒）：</span>
 	</div>
-	
+	<div class="time countdown">
+		<span class="left">剩余时间（天到毫秒）：</span>
+	</div>
 	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
-	<!--<script type="text/javascript" src="test.js"></script>-->
 	<script type="text/javascript" src="../1.0.0/countDown.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$(".test").countdown({
+			"startTime": "1439740800000",
+			"endTime": "1440864000000",   
+			"minRange": 1,
+			"maxRange": 3
+		});
+		$(".countdown:eq(0)").countdown({
+			"maxRange": 3,
+			"endEffect": function() {
+				$(".countdown:eq(0)").slideUp();
+			}
+		});
+		$(".countdown:eq(1)").countdown({
+			"startTime": "1439740800000",
+			"endTime": "1440864000000",   
+			"minRange": 0,
+			"maxRange": 3,
+			"format": ["天", "时", "分", "秒"],
+			"prefix": false
+		});
+	});
+	</script>
 </body>
 </html>
