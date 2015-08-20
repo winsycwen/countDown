@@ -3,6 +3,42 @@
 基于jQuery的倒计时插件，使用者可参考[参数](#options)，配置出合适的倒计时。
 
 ## How to use
+
+首先，需要类似以下的HTML结构：
+
+```html
+<div class="countdown">
+	<span>剩余时间（天到毫秒）：</span>
+</div>
+```
+
+接下来，引入js以及编辑js：
+
+* 方式一：
+在页面中引入jquery-1.11.3.min.js以及countDown.js
+如下所示：
+
+```html
+<script type="text/javascript" src="/path/to/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/path/to/countDown.js"></script>
+```
+
+然后你可以像下面这样调用：
+
+```js
+$(".countdown").countdown({
+	"maxRange": 3,
+	"endEffect": function() {
+	    // this.slideUp(); 不可取，this指向window
+		$(".countdown").slideUp();
+	}
+});
+```
+*注意：如果使用endEffect时，函数内部如果使用this,很有可能指向window*
+* 方式二：
+
+
+
 ## Options
 <table>
     <thead>
@@ -51,7 +87,7 @@
         <tr>
             <td>endEffect</td>
             <td>null</td>
-            <td>null/函数类型，倒计时结束时的效果。</td>
+            <td>null/函数类型，倒计时结束时的效果。注意：函数内部不要使用this(此处有可能指向window)</td>
         </tr>
     </tbody>
 </table>
