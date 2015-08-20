@@ -1,6 +1,6 @@
 # time-count-down
 
-    基于jQuery的倒计时插件，使用者可参考[参数](#options)，配置出合适的倒计时。
+基于jQuery的倒计时插件，使用者可参考[参数](#options)，配置出合适的倒计时。
 
 ## How to use
 ## Options
