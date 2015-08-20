@@ -1,5 +1,5 @@
 /*!
- * countDown v1.0.0
+ * countDown v1.0.1
  * 倒计时组件
  *
  * 作者：winsycwen
@@ -64,7 +64,7 @@
 			$.error("Incorrect format!");
 		}
 
-		var diff = 6000; // 现在时间与结束时间的时间差（毫秒）
+		var diff = 120000; // 现在时间与结束时间的时间差（毫秒）
 		if(userOptions && userOptions.startTime && userOptions.endTime) {
 			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，
 			// 则计算现在时间与结束时间的差
