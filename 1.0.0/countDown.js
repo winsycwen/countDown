@@ -1,5 +1,5 @@
 /*!
- * countDown v1.0.1
+ * countDown v1.2.0
  * 倒计时组件
  *
  * 作者：winsycwen
@@ -23,7 +23,6 @@
 	function _init(userOptions) {
 		// 保存调用对象
 		var $this = this; 
-
 		/*
 		 * options默认配置
 		 * now：现在的时间，可选选项，13位时间戳(String)，毫秒为单位，如果提供了startTime与endTime则默认取客户端的时间；
@@ -46,6 +45,11 @@
 		};
 		// 配置：合并userOptions到options对象中
 		$.extend(options, userOptions);
+		// 存储初始化过的countdown
+		$this.data("countdown", {
+			target: $this,
+			options: options
+		});
 
 		var maxRange = options.maxRange,
 			minRange = options.minRange,
@@ -60,11 +64,11 @@
 		if(minRange < 0 || minRange > 4 || maxRange < 0 || maxRange > 4) {
 			$.error("Incorrect minRange or maxRange!");
 		}
-		if(userOptions.format && format.length != maxRange - minRange + 1) {
+		if(userOptions && userOptions.format && format.length != maxRange - minRange + 1) {
 			$.error("Incorrect format!");
 		}
 
-		var diff = 120000; // 现在时间与结束时间的时间差（毫秒）
+		var diff = 60000; // 现在时间与结束时间的时间差（毫秒）
 		if(userOptions && userOptions.startTime && userOptions.endTime) {
 			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，
 			// 则计算现在时间与结束时间的差
@@ -179,12 +183,13 @@
 	 * @params 类数组:timeArray 时间;Number:max timeClass对应毫秒至天的下标;prefixFlag
 	 */
 	function _changTime(timeArray, max, prefixFlag) {
+		var len, i, flag;
 		if(timeArray[timeClass[max]] != 0) {
 			 timeArray[timeClass[max]] --;
 			// timeClass[max] == "milliseconds" ? timeArray[timeClass[max]] -= 6 : timeArray[timeClass[max]] --;
 			this.find("." + timeClass[max]).text(timeArray[timeClass[max]] < 10 && prefixFlag ? "0" + timeArray[timeClass[max]] : timeArray[timeClass[max]]);
 		} else {
-			for(var len = 0, i = timeArray.length - 1, flag = false; i >= len; i-- ) {
+			for(len = timeArray.length - max + 1, i = max, flag = false; i >= len; i-- ) {
 				if(timeArray[timeClass[i]] != 0) break;
 				if(i == len) {
 					flag = true;
@@ -217,7 +222,10 @@
 	var methods = {
 		// 初始化方法
 		init: function(userOptions) {
-			_init.call($(this.selector), userOptions);
+			var $JQ_obj = $(this.selector);
+			if(!$JQ_obj.data("countdown")) {
+				_init.call($JQ_obj, userOptions);
+			}
 		},
 		// 开始倒计时
 		start: function() {
