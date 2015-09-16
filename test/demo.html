@@ -22,40 +22,43 @@
 </head>
 <body>
 	<div class="time test">
-		<span class="left">剩余时间（小时到秒）：</span>
+		<span class="left">剩余时间（小时到分钟）：</span>
 	</div>
 	<div class="time countdown">
-		<span class="left">剩余时间（天到毫秒）：</span>
+		<span class="left">剩余时间（天到秒）：</span>
 	</div>
 	<div class="time countdown">
-		<span class="left">剩余时间（天到毫秒）：</span>
+		<span class="left">剩余时间（时到毫秒）：</span>
 	</div>
 	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../1.0.0/countDown.js"></script>
 	<script type="text/javascript">
 	$(function() {
-		/*$(".test").countdown({
-			"startTime": "1441814400000",
-			"endTime": "1441900800000",   
-			"minRange": 1,
-			"maxRange": 3
+		$(".test").countdown({
+			startTime: "1441814400000",
+			endTime: "1441900800000",   
+			minRange: 1,
+			maxRange: 2
 		});
 		$(".countdown:eq(0)").countdown({
-			"maxRange": 3,
-			"endEffect": function() {
+			minRange: 0,
+			maxRange: 3,
+			endEffect: function() {
 				$(".countdown:eq(0)").slideUp();
 			}
-		});*/
-		$(".countdown:eq(1)").countdown({
-			"startTime": "1439740800000",
-			"endTime": "1440864000000",   
-			"minRange": 0,
-			"format": ["天", "时", "分", "秒", "毫秒"],
-			"prefix": false
 		});
-		/*$(".test").countdown();
-		$(".countdown:eq(0)").countdown();
-		$(".countdown:eq(1)").countdown();*/
+		$(".countdown:eq(1)").countdown({
+			startTime: "1439740800000",
+			endTime: "1440864000000",   
+			minRange: 1,
+			maxRange: 4,
+			format: ["时", "分", "秒", "毫秒"],
+			prefix: false
+		});
+
+		// $(".test").countdown();
+		// $(".countdown:eq(0)").countdown();
+		// $(".countdown:eq(1)").countdown();
 	});
 	</script>
 </body>
