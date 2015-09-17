@@ -30,8 +30,9 @@
 	<div class="time countdown">
 		<span class="left">剩余时间（时到毫秒）：</span>
 	</div>
-	<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="../1.0.0/countDown.js"></script>
+	<script type="text/javascript"></script>
+	<script type="text/javascript" src="../lib/jquery/1.11.3/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="../src/countDown.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		$(".test").countdown({
@@ -55,7 +56,6 @@
 			format: ["时", "分", "秒", "毫秒"],
 			prefix: false
 		});
-
 		// $(".test").countdown();
 		// $(".countdown:eq(0)").countdown();
 		// $(".countdown:eq(1)").countdown();

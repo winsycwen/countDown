@@ -1,5 +1,2 @@
 # configuration file
-package.json
-Gruntfile.js
-build/*
 node_modules/*

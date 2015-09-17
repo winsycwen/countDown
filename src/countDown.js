@@ -1,5 +1,6 @@
 /*!
  * countDown v1.2.0
+ * Date: 2015-09-17
  * 倒计时组件
  *
  * 作者：winsycwen
@@ -147,14 +148,14 @@
 	/*
 	 *	@description 判断配置选项是否符合规范
 	 *	@params Object: userOptions 用户配置选项; Object: options 配置选项
-	 *	@return Boolean: true/false 返回配置选项是否规范的布尔值
+	 *	@return Boolean: true/false 返回配置选项是否规范的布尔值   
 	 */
 	function _checkOptions(userOptions, options) {
 		if(userOptions) {
 			if(options.minRange < 0 || options.minRange > 4 || options.maxRange < 0 || options.maxRange > 4) {
 				$.error("Please provide correct minRange or maxRange!");
 			}
-			if(userOptions.format && options.format.length != options.maxRange - options.minRange + 1) {
+			if(userOptions.format && options.format.length !== options.maxRange - options.minRange + 1) {
 				$.error("Please provide correct format!");
 			}
 		} 
@@ -177,13 +178,13 @@
 		timeArray.length = max - min + 1;
 		tempWrap = $("<div class='tempWrap'></div>").appendTo(this);
 		for(i = min, j = 0, len = max - min + 1;j < len; i++, j++) {
-			if(j == 0) {
+			if(j === 0) {
 				time = parseInt(diff/dividend_one[i]);
 			} else {
 				time = parseInt(diff/dividend_one[i]) % dividend_two[i];
 			}
 			$("<span>").addClass(timeClass[i]).text(time < 10 && prefixFlag ? "0" + time : time).appendTo(tempWrap);
-			$("<em>").text(defaultFormat != format ? format[j] : format[i]).appendTo(tempWrap);
+			$("<em>").text(defaultFormat !== format ? format[j] : format[i]).appendTo(tempWrap);
 			timeArray[timeClass[i]] = time;
 		}
 		return timeArray;
@@ -196,13 +197,13 @@
 	 */
 	function _changTime(timeArray, max, min, prefixFlag) {
 		var len, i, flag;
-		if(timeArray[timeClass[max]] != 0) {
+		if(timeArray[timeClass[max]] !== 0) {
 			// timeArray[timeClass[max]] --;
 			timeClass[max] == "milliseconds" ? timeArray[timeClass[max]] -= 10 : timeArray[timeClass[max]] --;
 			this.find("." + timeClass[max]).text(timeArray[timeClass[max]] < 10 && prefixFlag ? "0" + timeArray[timeClass[max]] : timeArray[timeClass[max]]);
 		} else {
 			for(i = max, flag = false; i >= min; i-- ) {
-				if(timeArray[timeClass[i]] != 0) break;
+				if(timeArray[timeClass[i]] !== 0) break;
 				if(i == min) {
 					flag = true;
 					// 结束倒计时
@@ -261,5 +262,5 @@
 		} else {
 			$.error("Method " + method +" does not exist on countdown!");
 		}
-	}
+	};
 })(jQuery);
