@@ -30,10 +30,21 @@
 	<div class="time countdown">
 		<span class="left">剩余时间（时到毫秒）：</span>
 	</div>
-	<script type="text/javascript"></script>
+	<script type="text/javascript" src="../lib/seajs/2.2.3/sea.js"></script>
+	<script type="text/javascript">
+	seajs.config({
+		base: "../lib/",
+		alias: {
+			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js"
+		}
+	});
+	seajs.use("../src/countDown");
+	</script>
+<!--
 	<script type="text/javascript" src="../lib/jquery/1.11.3/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript" src="../src/countDown.js"></script>
-	<script type="text/javascript">
+-->
+	<!--<script type="text/javascript">
 	$(function() {
 		$(".test").countdown({
 			startTime: "1441814400000",
@@ -60,6 +71,6 @@
 		// $(".countdown:eq(0)").countdown();
 		// $(".countdown:eq(1)").countdown();
 	});
-	</script>
+	</script>-->
 </body>
 </html>

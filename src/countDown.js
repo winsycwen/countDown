@@ -8,8 +8,9 @@
  * 请尊重原创，保留头部版权
  * 在保留版权的前提下可应用于个人或商业用途
  */
-
-;(function($) {
+define(function(require, exports, modules) {
+	require("jquery/1.11.3/jquery-1.11.3.min.js");
+	
 	// 闭包内部全局变量
 	var timeClass = ["day", "hour", "minutes", "seconds", "milliseconds"],
 		dividend_one = [86400000, 3600000, 60000, 1000, 1],
@@ -263,4 +264,26 @@
 			$.error("Method " + method +" does not exist on countdown!");
 		}
 	};
-})(jQuery);
+	
+	$(".test").countdown({
+		startTime: "1441814400000",
+		endTime: "1441900800000",   
+		minRange: 1,
+		maxRange: 2
+	});
+	$(".countdown:eq(0)").countdown({
+		minRange: 0,
+		maxRange: 3,
+		endEffect: function() {
+			$(".countdown:eq(0)").slideUp();
+		}
+	});
+	$(".countdown:eq(1)").countdown({
+		startTime: "1439740800000",
+		endTime: "1440864000000",   
+		minRange: 1,
+		maxRange: 4,
+		format: ["时", "分", "秒", "毫秒"],
+		prefix: false
+	});
+});

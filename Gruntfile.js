@@ -9,14 +9,14 @@ module.exports = function(grunt) {
         	dest: 'build/*.js'
         },
         uglify: {
-        	src: 'build/<%= pkg.name %>.js',
+        	src: 'src/<%= pkg.name %>.js',
         	dest: 'build/<%= pkg.name %>.min.js'
     	},
     	watch: {
-    		scripts: {
+    		/*scripts: {
     			files: 'src/*.js',
     			tasks: ['unwrap']
-    		},
+    		},*/
     		build: {
     			files: 'build/<%= pkg.name %>.js',
     			tasks: ['uglify']
