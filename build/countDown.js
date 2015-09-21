@@ -1,3 +1,33 @@
+!(function () {
+
+var __modules__ = {};
+
+function require (id) {
+    var mod = __modules__[id];
+    var exports = 'exports';
+
+    if (typeof mod === 'object') {
+        return mod;
+    }
+
+    if (!mod[exports]) {
+        mod[exports] = {};
+        mod[exports] = mod.call(mod[exports], require, mod[exports], mod) || mod[exports];
+    }
+
+    return mod[exports];
+}
+
+function define (path, fn) {
+    __modules__[path] = fn;
+}
+
+
+
+define("jquery", function () {
+	return jQuery;
+});
+
 /*!
  * countDown v1.2.0
  * Date: 2015-09-17
@@ -7,7 +37,7 @@
  * Github: https://github.com/winsycwen
  * 请尊重原创，保留头部版权
  */
-define(function(require, exports, modules) {
+define("src/countDown", function(require, exports, modules) {
 	/*require("jquery");
 	window.$ = window.jQuery;*/
 	
@@ -265,3 +295,7 @@ define(function(require, exports, modules) {
 		}
 	};
 });
+
+this.undefined = require("src/countDown");
+
+})();
