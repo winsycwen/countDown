@@ -24,10 +24,6 @@ function define (path, fn) {
 
 
 
-define("jquery", function () {
-	return jQuery;
-});
-
 /*!
  * countDown v1.2.0
  * Date: 2015-09-17
@@ -38,9 +34,6 @@ define("jquery", function () {
  * 请尊重原创，保留头部版权
  */
 define("src/countDown", function(require, exports, modules) {
-	/*require("jquery");
-	window.$ = window.jQuery;*/
-	
 	// 闭包内部全局变量
 	var timeClass = ["day", "hour", "minutes", "seconds", "milliseconds"],
 		dividend_one = [86400000, 3600000, 60000, 1000, 1],
