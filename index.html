@@ -1,70 +1,154 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Time-count-down : ">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Time-count-down</title>
+    <meta charset="UTF-8">
+    <title>Time-count-down by winsycwen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">Time-count-down</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/winsycwen/time-count-down" class="btn">View on GitHub</a>
+      <a href="https://github.com/winsycwen/time-count-down/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/winsycwen/time-count-down/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/winsycwen/time-count-down">View on GitHub</a>
+    <section class="main-content">
+      <h1>
+<a id="time-count-down" class="anchor" href="#time-count-down" aria-hidden="true"><span class="octicon octicon-link"></span></a>time-count-down</h1>
 
-          <h1 id="project_title">Time-count-down</h1>
-          <h2 id="project_tagline"></h2>
+<p>基于jQuery的倒计时插件，使用者可参考<a href="#options">参数</a>，配置出合适的倒计时。</p>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/winsycwen/time-count-down/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/winsycwen/time-count-down/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+<h2>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a id="countdown-v120版本" class="anchor" href="#countdown-v120%E7%89%88%E6%9C%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>countDown v1.2.0版本</h3>
+<p>首先，需要类似以下的HTML结构：</p>
 
-<h3>
-<a id="参数" class="anchor" href="#%E5%8F%82%E6%95%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>参数</h3>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>countdown<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">span</span>&gt;剩余时间（天到毫秒）：&lt;/<span class="pl-ent">span</span>&gt;
+&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+<p>接下来，引入js以及编辑js：</p>
 
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span class="octicon octicon-link"></span></a>Creating pages manually</h3>
+<ul>
+<li>方式一：
+在页面中引入jquery-1.11.3.min.js以及countDown.js
+如下所示：</li>
+</ul>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/jquery-1.11.3.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/countDown.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>然后你可以像下面这样调用：</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<div class="highlight highlight-source-js"><pre>$(<span class="pl-s"><span class="pl-pds">"</span>.countdown<span class="pl-pds">"</span></span>).countdown({
+    <span class="pl-s"><span class="pl-pds">"</span>maxRange<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-c1">3</span>,
+    <span class="pl-s"><span class="pl-pds">"</span><span class="pl-en">endEffect</span><span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+        <span class="pl-c">// this.slideUp(); 不可取，this指向window</span>
+        $(<span class="pl-s"><span class="pl-pds">"</span>.countdown<span class="pl-pds">"</span></span>).slideUp();
+    }
+});</pre></div>
 
-<h3>
-<a id="示例" class="anchor" href="#%E7%A4%BA%E4%BE%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>示例</h3>
+<p><em>注意：如果使用endEffect时，函数内部如果使用this,很有可能指向window</em></p>
 
-<p><code>console.log('teset');</code></p>
-      </section>
-    </div>
+<ul>
+<li>方式二：</li>
+</ul>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Time-count-down maintained by <a href="https://github.com/winsycwen">winsycwen</a></p>
-        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Property (Type)</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>now</td>
+            <td>new Date().getTime()</td>
+            <td>现在的时间，13位时间戳(String)，毫秒为单位。如果提供了startTime与endTime，则now默认取客户端的时间；如果提供了now、startTime与endTime，则now为用户配置的值。</td>
+        </tr>
+        <tr>
+            <td>startTime</td>
+            <td>null</td>
+            <td>开始的时间，13位时间戳(String)，毫秒为单位。如果没有提供now、endTime则默认倒计时时间为2分钟；</td>
+        </tr>
+        <tr>
+            <td>endTime</td>
+            <td>null</td>
+            <td>开始的时间，13位时间戳(String)，毫秒为单位。如果没有提供now、endTime则默认倒计时时间为2分钟；</td>
+        </tr>
+        <tr>
+            <td>minRange</td>
+            <td>默认为0，时间最高能显示到“天”</td>
+            <td>需要显示的范围，可选值为(0-4或"0"-"4"或"day","hour","minutes","seconds","milliseconds")。例如：值为0、"0"与"day"代表时间最高能显示到“天”</td>
+        </tr>
+        <tr>
+            <td>maxRange</td>
+            <td>默认为4，时间最低能显示到“毫秒”</td>
+            <td>需要显示的范围，可选值为(0-4或"0"-"4"或"day","hour","minutes","seconds","milliseconds")。例如：值为4、"4"与"milliseconds"代表时间最低能显示到“天”。注意：maxRange&gt;=minRange才能正常运行</td>
+        </tr>
+        <tr>
+            <td>format</td>
+            <td>defaultFormat，即["天", "小时", "分钟", "秒", "毫秒"]</td>
+            <td>数组类型，时间显示的格式。例如：01天22小时03分钟。也可提供["天", "时", "分"]等。注意：提供的数组长度要等于maxRange-minRange+1。</td>
+        </tr>
+        <tr>
+            <td>prefix</td>
+            <td>true</td>
+            <td>布尔类型，时间显示前缀，当数字小于9时，显示为09。如果为false时，当数字小于9时，显示为9。</td>
+        </tr>
+        <tr>
+            <td>endEffect</td>
+            <td>null</td>
+            <td>null/函数类型，倒计时结束时的效果。注意：函数内部不要使用this(此处有可能指向window)</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>
+<a id="public-plugin-methods" class="anchor" href="#public-plugin-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Public plugin methods</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>method(arguments)</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>init</td>
+            <td>初始化方法，第一次调用插件时会自动执行</td>
+        </tr>
+        <tr>
+            <td>start</td>
+            <td>开始倒计时方法/重新开始倒计时方法</td>
+        </tr>
+        <tr>
+            <td>pause</td>
+            <td>暂停倒计时方法</td>
+        </tr>
+    </tbody>
+</table>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/winsycwen/time-count-down">Time-count-down</a> is maintained by <a href="https://github.com/winsycwen">winsycwen</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
 
+  
   </body>
 </html>
