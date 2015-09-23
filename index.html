@@ -13,9 +13,9 @@
     <section class="page-header">
       <h1 class="project-name">Time-count-down</h1>
       <h2 class="project-tagline"></h2>
-      <a href="https://github.com/winsycwen/time-count-down" class="btn">View on GitHub</a>
-      <a href="https://github.com/winsycwen/time-count-down/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/winsycwen/time-count-down/tarball/master" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/winsycwen/countDown" class="btn">View on GitHub</a>
+      <a href="https://github.com/winsycwen/countDown/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/winsycwen/countDown/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -23,6 +23,12 @@
 <a id="time-count-down" class="anchor" href="#time-count-down" aria-hidden="true"><span class="octicon octicon-link"></span></a>time-count-down</h1>
 
 <p>基于jQuery的倒计时插件，使用者可参考<a href="#options">参数</a>，配置出合适的倒计时。</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>先搁点示例上来说吧。
+<a href="http://winsycwen.github.io/time-count-down/test/demo.html">各种示例</a></p>
 
 <h2>
 <a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h2>
@@ -37,12 +43,12 @@
 
 <ul>
 <li>方式一：
-在页面中引入jquery-1.11.3.min.js以及countDown.js
+在页面中引入jquery-1.11.3.min.js以及countDown.min.js
 如下所示：</li>
 </ul>
 
 <div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/jquery-1.11.3.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
-&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/countDown.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>/path/to/countDown.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <p>然后你可以像下面这样调用：</p>
 
@@ -59,6 +65,45 @@
 <ul>
 <li>方式二：</li>
 </ul>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span> src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>../lib/seajs/2.2.3/sea.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>script<span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+    <span class="pl-k">var</span> randVersion <span class="pl-k">=</span> <span class="pl-c1">Math</span>.<span class="pl-c1">random</span>();
+    seajs.config({
+        alias<span class="pl-k">:</span> {
+            <span class="pl-s"><span class="pl-pds">"</span>jquery<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>jquery/1.11.3/jquery-1.11.3.min.js<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>countDown<span class="pl-pds">"</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>../build/countDown.min<span class="pl-pds">"</span></span>
+        },
+        map<span class="pl-k">:</span>[ [<span class="pl-sr"><span class="pl-pds">/</span><span class="pl-k">^</span>(<span class="pl-c1">.</span><span class="pl-k">*</span><span class="pl-cce">\.</span>(?:js))(<span class="pl-c1">.</span><span class="pl-k">*</span>)<span class="pl-k">$</span><span class="pl-pds">/</span>i</span>, <span class="pl-s"><span class="pl-pds">'</span>$1?ver=<span class="pl-pds">'</span></span><span class="pl-k">+</span>randVersion]]
+    });
+    seajs.use([<span class="pl-s"><span class="pl-pds">"</span>jquery<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>countDown<span class="pl-pds">"</span></span>], <span class="pl-k">function</span>(<span class="pl-smi">jQuery</span>, <span class="pl-smi">countDown</span>) {
+        <span class="pl-c1">window</span>.$ <span class="pl-k">=</span> <span class="pl-c1">window</span>.jQuery;
+        $(<span class="pl-s"><span class="pl-pds">"</span>.test<span class="pl-pds">"</span></span>).countdown({
+            startTime<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1441814400000<span class="pl-pds">"</span></span>,
+            endTime<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1441900800000<span class="pl-pds">"</span></span>,   
+            minRange<span class="pl-k">:</span> <span class="pl-c1">1</span>,
+            maxRange<span class="pl-k">:</span> <span class="pl-c1">2</span>
+        });
+        $(<span class="pl-s"><span class="pl-pds">"</span>.countdown:eq(0)<span class="pl-pds">"</span></span>).countdown({
+            minRange<span class="pl-k">:</span> <span class="pl-c1">0</span>,
+            maxRange<span class="pl-k">:</span> <span class="pl-c1">3</span>,
+            <span class="pl-en">endEffect</span><span class="pl-k">:</span> <span class="pl-k">function</span>() {
+                $(<span class="pl-s"><span class="pl-pds">"</span>.countdown:eq(0)<span class="pl-pds">"</span></span>).slideUp();
+            }
+        });
+        $(<span class="pl-s"><span class="pl-pds">"</span>.countdown:eq(1)<span class="pl-pds">"</span></span>).countdown({
+            startTime<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1439740800000<span class="pl-pds">"</span></span>,
+            endTime<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>1440864000000<span class="pl-pds">"</span></span>,   
+            minRange<span class="pl-k">:</span> <span class="pl-c1">1</span>,
+            maxRange<span class="pl-k">:</span> <span class="pl-c1">4</span>,
+            format<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">"</span>时<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>分<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>秒<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>毫秒<span class="pl-pds">"</span></span>],
+            prefix<span class="pl-k">:</span> <span class="pl-c1">false</span>
+        });
+        <span class="pl-c">// $(".test").countdown();</span>
+        <span class="pl-c">// $(".countdown:eq(0)").countdown();</span>
+        <span class="pl-c">// $(".countdown:eq(1)").countdown();</span>
+    });
+    <span class="pl-k">&lt;/</span>script<span class="pl-k">&gt;</span></pre></div>
 
 <h2>
 <a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
@@ -141,13 +186,8 @@
     </tbody>
 </table>
 
-<h2>
-<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
-
-<p><a href="http://winsycwen.github.io/time-count-down/test/demo.html">各种示例</a></p>
-
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/winsycwen/time-count-down">Time-count-down</a> is maintained by <a href="https://github.com/winsycwen">winsycwen</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/winsycwen/countDown">Time-count-down</a> is maintained by <a href="https://github.com/winsycwen">winsycwen</a>.</span>
 
         <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
