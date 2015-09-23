@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         meta: {
         	banner: '/*! <%= pkg.name %> <%= pkg.version %> <%= pkg.homepage %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        unwrap: {
+        /*unwrap: {
           options: {
             globalBase: "lib/global_modules"
           },
@@ -12,17 +12,17 @@ module.exports = function(grunt) {
         		src: 'src/<%= pkg.name %>.js',
         		dest: 'build/<%= pkg.name %>.js'
         	}
-        },
+        },*/
         uglify: {
         	build: {
-        		src: 'build/<%= pkg.name %>.js',
+        		src: 'src/<%= pkg.name %>.js',
         		dest: 'build/<%= pkg.name %>.min.js'
         	}
     	},
     	watch: {
     		scripts: {
     			files: 'src/*.js',
-    			tasks: ['unwrap', 'uglify']
+    			tasks: ['uglify']
     		},
     		html: {
     			files: 'test/*'
