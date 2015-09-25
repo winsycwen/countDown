@@ -241,10 +241,12 @@ define(function(require, exports, modules) {
 		},
 		// 开始倒计时
 		start: function() {
+			console.log("start");
 			$(this.selector).trigger("start");
 		},
 		// 暂停倒计时
 		pause: function() {
+			console.log("start");
 			$(this.selector).trigger("pause");
 		}
 	};
