@@ -36,7 +36,8 @@
 	seajs.config({
 		alias: {
 			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js",
-			"countDown": "../build/countDown.min"
+			// "countDown": "../build/countDown.min"
+			"countDown": "../src/countDown"
 		},
 		map:[ [/^(.*\.(?:js))(.*)$/i, '$1?ver='+randVersion]]
 	});
