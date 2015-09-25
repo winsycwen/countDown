@@ -116,6 +116,7 @@ define(function(require, exports, modules) {
 		// 绑定名为"start"的事件，定义改变时间的间歇调用
 		$this.on("start", function(event) {
 			var $that = $this;
+			console.log("start");
 			if(!interval) {
 				// if(maxRange == 4) --diff;
 				interval = setInterval(function() {
@@ -136,6 +137,7 @@ define(function(require, exports, modules) {
 		// 绑定名为"end"事件，结束倒计时
 		$this.on("end", function() {
 			var $that = $this;
+			console.log("end");
 			if(interval) {
 				clearInterval(interval);
 				interval = null;
@@ -241,12 +243,10 @@ define(function(require, exports, modules) {
 		},
 		// 开始倒计时
 		start: function() {
-			console.log("start");
 			$(this.selector).trigger("start");
 		},
 		// 暂停倒计时
 		pause: function() {
-			console.log("start");
 			$(this.selector).trigger("pause");
 		}
 	};
