@@ -112,18 +112,6 @@ define(function(require, exports, modules) {
 		// 测试：
 		// initTime = {"hour": 0, "minutes": 1, "seconds": 10, "length": 3};
 
-		// 绑定名为"start"的事件，定义改变时间的间歇调用
-		$this.on("start", function(event) {
-			var $that = $this;
-			if(!interval) {
-				// if(maxRange == 4) --diff;
-				interval = setInterval(function() {
-					initTime = _changTime.call($that, initTime, maxRange, minRange, prefixflag);
-				}, time);
-			}
-		});
-		// 触发"start"事件，开始倒计时
-		$this.trigger("start");
 
 		// 绑定名为"pause"事件，暂停倒计时
 		$this.on("pause", function() {
@@ -139,8 +127,22 @@ define(function(require, exports, modules) {
 				clearInterval(interval);
 				interval = null;
 				_endEffect.call($that, endEffect);
+				console.log($that, "end");
 			}
 		});
+
+		// 绑定名为"start"的事件，定义改变时间的间歇调用
+		$this.on("start", function(event) {
+			var $that = $this;
+			if(!interval && diff >= time) {
+				console.log($that, "start");
+				interval = setInterval(function() {
+					initTime = _changTime.call($that, initTime, maxRange, minRange, prefixflag);
+				}, time);
+			}
+		});
+		// 触发"start"事件，开始倒计时
+		$this.trigger("start");
 	}
 	
 	/*
