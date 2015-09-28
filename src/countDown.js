@@ -8,6 +8,7 @@
  * 请尊重原创，保留头部版权
  */
 define(function(require, exports, modules) {
+	require("../lib/jquery/1.11.3/jquery-1.11.3.min.js");
 	// 闭包内部全局变量
 	var timeClass = ["day", "hour", "minutes", "seconds", "milliseconds"],
 		dividend_one = [86400000, 3600000, 60000, 1000, 1],
@@ -62,7 +63,7 @@ define(function(require, exports, modules) {
 		// 配置选项的检测
 		_checkOptions(userOptions, options);
 
-		var diff = 60000; // 现在时间与结束时间的时间差（毫秒）
+		var diff = 2000; // 现在时间与结束时间的时间差（毫秒）
 		if(userOptions && userOptions.startTime && userOptions.endTime) {
 			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，
 			// 则计算现在时间与结束时间的差
@@ -112,7 +113,6 @@ define(function(require, exports, modules) {
 		// 测试：
 		// initTime = {"hour": 0, "minutes": 1, "seconds": 10, "length": 3};
 
-
 		// 绑定名为"pause"事件，暂停倒计时
 		$this.on("pause", function() {
 			if(interval) {
@@ -123,6 +123,7 @@ define(function(require, exports, modules) {
 		// 绑定名为"end"事件，结束倒计时
 		$this.on("end", function() {
 			var $that = $this;
+			console.log("end");
 			if(interval) {
 				clearInterval(interval);
 				interval = null;

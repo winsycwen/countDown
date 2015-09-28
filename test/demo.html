@@ -32,12 +32,16 @@
 	</div>
 	<script type="text/javascript" src="../lib/seajs/2.2.3/sea.js"></script>
 	<script type="text/javascript">
+	var randVersion = Math.random();
 	seajs.config({
 		alias: {
-			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js"
-		}
+			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js",
+			// "countDown": "../build/countDown.min"
+			"countDown": "../src/countDown"
+		},
+		map:[ [/^(.*\.(?:js))(.*)$/i, '$1?ver='+randVersion]]
 	});
-	seajs.use(["jquery", "../src/countDown"], function(jQuery, countDown) {
+	seajs.use(["jquery", "countDown"], function(jQuery, countDown) {
 		window.$ = window.jQuery;
 		$(".test").countdown({
 			startTime: "1441814400000",
