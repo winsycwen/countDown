@@ -16,18 +16,22 @@ define(function(require, exports, modules) {
 		this.obj = obj;
 		this.callback = callback;
 		this.destroyed = false;
-		// this.timing = $("<div/>");
-		// this.isStarted = false;
 	}
 
 	$.extend(Timer.prototype, {
 		init: function() {
 			console.log("init");
+			return this;
 		},
-		start: function() {},
-		stop: function() {},
+		start: function() {
+			console.log("start");
+			return this;
+		},
+		stop: function() {
+		},
 		destroy: function() {},
-		counting: function() {}
+		counting: function() {
+		}
 	});
 
 	function __init(callback) {
@@ -41,7 +45,7 @@ define(function(require, exports, modules) {
 
 	function __callTimerMethod(methodName) {
 		if(!(methodName in Timer.prototype)) {
-			$.error("Method " + methodName + " does not exist on timing.js");
+			$.error("Method '" + methodName + "' does not exist on timing.js");
 		}
 		return this.each(function() {
 			var $element = $(this);
