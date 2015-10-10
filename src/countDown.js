@@ -1,6 +1,6 @@
 /*!
- * countDown v1.2.0
- * Date: 2015-09-17
+ * countDown v2.0.0
+ * Date: 2015-10-10
  * 倒计时组件
  *
  * 作者：winsycwen
@@ -63,7 +63,7 @@ define(function(require, exports, modules) {
 		// 配置选项的检测
 		_checkOptions(userOptions, options);
 
-		var diff = 2000; // 现在时间与结束时间的时间差（毫秒）
+		var diff = 60000; // 现在时间与结束时间的时间差（毫秒）
 		if(userOptions && userOptions.startTime && userOptions.endTime) {
 			// 如果"现在时间now"处于"开始时间startTime"与"结束时间endTime"之间，
 			// 则计算现在时间与结束时间的差
@@ -123,7 +123,6 @@ define(function(require, exports, modules) {
 		// 绑定名为"end"事件，结束倒计时
 		$this.on("end", function() {
 			var $that = $this;
-			console.log("end");
 			if(interval) {
 				clearInterval(interval);
 				interval = null;

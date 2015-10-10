@@ -36,35 +36,12 @@
 		alias: {
 			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js",
 			// "countDown": "../build/countDown.min"
-			"countDown": "../src/countDown"
+			"countDown": "../src/timer"
 		}
 	});
 	seajs.use(["jquery", "countDown"], function(jQuery, countDown) {
 		window.$ = window.jQuery;
-		$(".test").countdown({
-			startTime: "1441814400000",
-			endTime: "1441900800000",   
-			minRange: 1,
-			maxRange: 2
-		});
-		$(".countdown:eq(0)").countdown({
-			minRange: 0,
-			maxRange: 3,
-			endEffect: function() {
-				$(".countdown:eq(0)").slideUp();
-			}
-		});
-		$(".countdown:eq(1)").countdown({
-			startTime: "1439740800000",
-			endTime: "1440864000000",   
-			minRange: 1,
-			maxRange: 4,
-			format: ["时", "分", "秒", "毫秒"],
-			prefix: false
-		});
-		// $(".test").countdown();
-		// $(".countdown:eq(0)").countdown();
-		// $(".countdown:eq(1)").countdown();
+		$(".test").timer();
 	});
 	</script>
 </body>
