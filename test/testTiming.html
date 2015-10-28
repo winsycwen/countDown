@@ -21,7 +21,7 @@
 	</style>
 </head>
 <body>
-	<div class="time test">
+	<!-- <div class="time test">
 		<span class="left">剩余时间（小时到分钟）：</span>
 	</div>
 	<div class="time countdown">
@@ -29,20 +29,24 @@
 	</div>
 	<div class="time countdown">
 		<span class="left">剩余时间（时到毫秒）：</span>
+	</div> -->
+	<div class="time test">
+		<span class="left">计时：</span>
 	</div>
+	<span class="ui-timing-content"></span>
+	<span class="ui-timing-content"></span>
+	<span class="ui-timing-content"></span>
 	<script type="text/javascript" src="../lib/seajs/2.2.3/sea.js"></script>
 	<script type="text/javascript">
+	// base默认目录为F:/GitHub/time-count-down/lib/
 	seajs.config({
 		alias: {
 			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js",
-			// "countDown": "../build/countDown.min"
 			"countDown": "../src/timer"
 		}
 	});
-	seajs.use(["jquery", "countDown"], function(jQuery, countDown) {
-		window.$ = window.jQuery;
+	seajs.use(["jquery", "countDown"], function(jQuery, Timer) {
 		$(".test").timer();
-		$(".test").timer("start");
 	});
 	</script>
 </body>

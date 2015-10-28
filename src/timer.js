@@ -1,5 +1,5 @@
 /*!
- * timing v1.0.0
+ * timing v2.0.0
  * Date: 2015-10-10
  * 计时器基础类
  *
@@ -8,29 +8,80 @@
  * 请尊重原创，保留头部版权
  */
 define(function(require, exports, modules) {
-	require("../lib/jquery/1.11.3/jquery-1.11.3.min.js");
+	require("jquery");
 
 	var TIMER_DATA_NAME = "timer";
 
-	function Timer(obj, callback) {
+	/**
+	 * @description: Timer构造函数
+	 * @param	{Object}	obj			Timer对象
+	 * @param	{Function}	callback	回调函数
+	 * @return	void
+	 * 
+	 * @datetime	2015-10-27 10:07:30
+	 * @author	winsycwen<https://github.com/winsycwen>
+	 */
+	function Timer(obj) {
 		this.obj = obj;
-		this.callback = callback;
 		this.destroyed = false;
+		this.timingTimer = null;
+		this.isPaused = false;
+		this.isStarted = false;
+		this.wrapper = $("<div/>")
+			.addClass(this.wrapClassName)
+			.prepend($("<span/>").addClass(this.innerClassName))
+			.appendTo(obj);
+		this.time = 0;
 	}
 
 	$.extend(Timer.prototype, {
-		init: function() {
-			console.log("init");
-			return this;
-		},
+		wrapClassName: "ui-timing-wrap",
+		innerClassName: "ui-timing-content",
+		interval: 1000,
+		/**
+		 * @description: 开始
+		 * @datetime	2015-10-27 11:17:02
+		 * @author	winsycwen
+		 */
 		start: function() {
-			console.log("start");
+			var that = this;
+			if(this.destroyed) {
+				return this;
+			}
+			if(!this.isPaused && !this.isStarted) {
+				this.isStarted = true;
+				this.timingTimer = setInterval(function() {
+					that.time ++;
+					that.changeTime();
+				}, this.interval);
+			}
 			return this;
 		},
-		stop: function() {
+		/**
+		 * @description: 暂停
+		 * @datetime	2015-10-27 11:16:47
+		 * @author	winsycwen
+		 */
+		pause: function() {
+			clearInterval(this.timingTimer);
 		},
-		destroy: function() {},
-		counting: function() {
+		/**
+		 * @description: 摧毁
+		 * @datetime	2015-10-27 11:17:44
+		 * @author	winsycwen
+		 */
+		destroy: function() {
+			clearInterval(this.timingTimer);
+			this.destroyed = true;
+		},
+		/**
+		 * @description: 改变时间
+		 * @datetime	2015-10-27 11:15:48
+		 * @author	winsycwen
+		 */
+		changeTime: function() {
+			var target = this.obj.find("." + this.innerClassName);
+			target.html(this.time);
 		}
 	});
 
@@ -39,7 +90,7 @@ define(function(require, exports, modules) {
 			var $element = $(this);
 			var timer = new Timer($element, callback);
 			$element.data(TIMER_DATA_NAME, timer);
-			timer.init();
+			timer.start();
 		});
 	}
 
