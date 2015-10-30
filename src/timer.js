@@ -8,7 +8,10 @@
  * 请尊重原创，保留头部版权
  */
 define(function(require, exports, modules) {
-	require("jquery");
+	var $ = require("jquery");
+	var defaults = require("config");
+	var 
+
 
 	var TIMER_DATA_NAME = "timer";
 
@@ -44,12 +47,12 @@ define(function(require, exports, modules) {
 		 * @author	winsycwen
 		 */
 		start: function() {
-			var that = this;
 			if(this.destroyed) {
 				return this;
 			}
-			if(!this.isPaused && !this.isStarted) {
+			if(this.isPaused || !this.isStarted && !this.destroyed) {
 				this.isStarted = true;
+				this.isPaused = false;
 				this.timingTimer = setInterval(function() {
 					that.time ++;
 					that.changeTime();
@@ -63,7 +66,10 @@ define(function(require, exports, modules) {
 		 * @author	winsycwen
 		 */
 		pause: function() {
-			clearInterval(this.timingTimer);
+			if(!this.isPaused) {
+				clearInterval(this.timingTimer);
+				this.isPaused = true;
+			}
 		},
 		/**
 		 * @description: 摧毁
@@ -71,8 +77,10 @@ define(function(require, exports, modules) {
 		 * @author	winsycwen
 		 */
 		destroy: function() {
-			clearInterval(this.timingTimer);
-			this.destroyed = true;
+			if(!this.destroyed) {
+				clearInterval(this.timingTimer);
+				this.destroyed = true;
+			}
 		},
 		/**
 		 * @description: 改变时间

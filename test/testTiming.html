@@ -42,7 +42,8 @@
 	seajs.config({
 		alias: {
 			"jquery": "jquery/1.11.3/jquery-1.11.3.min.js",
-			"countDown": "../src/timer"
+			"countDown": "../src/timer",
+			"config": "../src/countDown-config"
 		}
 	});
 	seajs.use(["jquery", "countDown"], function(jQuery, Timer) {
